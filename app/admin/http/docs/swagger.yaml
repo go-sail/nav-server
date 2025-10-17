@@ -1,0 +1,888 @@
+basePath: /
+definitions:
+  ack.CommonSyncRemoteAssetAck:
+    properties:
+      url:
+        description: 访问地址
+        format: string
+        type: string
+    required:
+    - url
+    type: object
+  ack.CommonUploadAck:
+    properties:
+      url:
+        description: 访问地址
+        format: string
+        type: string
+    required:
+    - url
+    type: object
+  ack.NavCategory:
+    properties:
+      icon:
+        description: 图标地址
+        format: string
+        type: string
+      identity:
+        description: 唯一标识符
+        format: string
+        type: string
+      name:
+        description: 名称
+        format: string
+        type: string
+      sites:
+        description: 下属站点
+        items:
+          $ref: '#/definitions/ack.NavSite'
+          format: array<object>
+        type: array
+      sortIndex:
+        description: 排序，越小越靠前
+        format: number
+        type: integer
+    required:
+    - icon
+    - identity
+    - name
+    - sites
+    - sortIndex
+    type: object
+  ack.NavCategoryDeleteAck:
+    type: object
+  ack.NavCategoryListAck:
+    properties:
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/ack.NavCategory'
+          format: array<object>
+        type: array
+    required:
+    - list
+    type: object
+  ack.NavCategorySaveAck:
+    type: object
+  ack.NavCategorySortedAck:
+    type: object
+  ack.NavListAck:
+    properties:
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/ack.NavCategory'
+          format: array<object>
+        type: array
+    required:
+    - list
+    type: object
+  ack.NavSite:
+    properties:
+      categoryIdentity:
+        description: 所属分类唯一标识符
+        format: string
+        type: string
+      description:
+        description: 描述
+        format: string
+        type: string
+      icon:
+        description: 图标地址
+        format: string
+        type: string
+      identity:
+        description: 唯一标识符
+        format: string
+        type: string
+      name:
+        description: 名称
+        format: string
+        type: string
+      sortIndex:
+        description: 排序，越小越靠前
+        format: number
+        type: integer
+      url:
+        description: 站点链接地址
+        format: string
+        type: string
+    required:
+    - categoryIdentity
+    - description
+    - icon
+    - identity
+    - name
+    - sortIndex
+    - url
+    type: object
+  ack.NavSiteDeleteAck:
+    type: object
+  ack.NavSiteListAck:
+    properties:
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/ack.NavSite'
+          format: array<object>
+        type: array
+    required:
+    - list
+    type: object
+  ack.NavSiteSaveAck:
+    type: object
+  ack.NavSiteSortedAck:
+    type: object
+  ack.UserLoginAck:
+    properties:
+      token:
+        description: 访问令牌
+        format: string
+        type: string
+    required:
+    - token
+    type: object
+  ack.UserLogoutAck:
+    type: object
+  dto.Error400:
+    properties:
+      code:
+        description: |-
+          错误码
+          in: body
+          required: true
+        example: 100000
+        format: int
+        type: integer
+      data:
+        description: |-
+          业务数据
+          in: body
+          required: true
+        format: object|array|string
+      message:
+        description: |-
+          提示信息
+          in: body
+          required: true
+        example: Bad request parameters
+        format: string
+        type: string
+      requestId:
+        description: |-
+          请求id
+          in: body
+          required: false
+        example: 5686efa5-c747-4f63-8657-e6052f8181a9
+        format: string
+        type: string
+      success:
+        description: |-
+          是否成功
+          in: body
+          required: true
+        example: false
+        format: bool
+        type: boolean
+      ts:
+        description: |-
+          服务器时间(毫秒时间戳)
+          in: body
+          required: true
+        example: 1670899688591
+        format: int64
+        type: integer
+    required:
+    - code
+    - data
+    - message
+    - requestId
+    - success
+    - ts
+    type: object
+  dto.Error500:
+    properties:
+      code:
+        description: |-
+          错误码
+          in: body
+          required: true
+        example: 999999
+        format: int
+        type: integer
+      data:
+        description: |-
+          业务数据
+          in: body
+          required: true
+        format: object|array|string
+      message:
+        description: |-
+          提示信息
+          in: body
+          required: true
+        example: Internal server error
+        format: string
+        type: string
+      requestId:
+        description: |-
+          请求id
+          in: body
+          required: false
+        example: 5686efa5-c747-4f63-8657-e6052f8181a9
+        format: string
+        type: string
+      success:
+        description: |-
+          是否成功
+          in: body
+          required: true
+        example: false
+        format: bool
+        type: boolean
+      ts:
+        description: |-
+          服务器时间(毫秒时间戳)
+          in: body
+          required: true
+        example: 1670899688591
+        format: int64
+        type: integer
+    required:
+    - code
+    - data
+    - message
+    - requestId
+    - success
+    - ts
+    type: object
+  req.NavCategorySaveReq:
+    properties:
+      icon:
+        description: 图标地址
+        format: string
+        maxLength: 1024
+        type: string
+      identity:
+        description: 唯一标识符（为空则表示创建）
+        format: string
+        type: string
+      name:
+        description: 名称
+        format: string
+        maxLength: 255
+        type: string
+    required:
+    - icon
+    - name
+    type: object
+  req.NavCategorySortedReq:
+    properties:
+      identities:
+        description: 分类唯一标识列表
+        items:
+          format: array<string>
+          type: string
+        type: array
+    required:
+    - identities
+    type: object
+  req.NavSiteSaveReq:
+    properties:
+      categoryIdentity:
+        description: 分类唯一标识
+        format: string
+        type: string
+      description:
+        description: 描述
+        format: string
+        maxLength: 255
+        type: string
+      icon:
+        description: 图标地址
+        format: string
+        maxLength: 1024
+        type: string
+      identity:
+        description: 唯一标识符（为空则表示创建）
+        format: string
+        type: string
+      name:
+        description: 名称
+        format: string
+        maxLength: 255
+        type: string
+      url:
+        description: 地址
+        format: string
+        maxLength: 255
+        type: string
+    required:
+    - categoryIdentity
+    - description
+    - icon
+    - name
+    - url
+    type: object
+  req.NavSiteSortedReq:
+    properties:
+      categoryIdentity:
+        description: 分类唯一标识
+        format: string
+        type: string
+      identities:
+        description: 站点唯一标识列表
+        items:
+          format: array<string>
+          type: string
+        type: array
+    required:
+    - categoryIdentity
+    - identities
+    type: object
+  req.UserLoginReq:
+    properties:
+      password:
+        description: 密码
+        format: string
+        type: string
+      username:
+        description: 用户名
+        format: string
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  req.UserLogoutReq:
+    type: object
+info:
+  contact:
+    email: support@go-sail.dev
+    name: Go-Sail
+    url: https://nav.go-sail.dev
+  description: This is an API documentation of nav-server module.
+  termsOfService: https://nav.go-sail.dev
+  title: admin - <nav-server>
+  version: "1.0"
+paths:
+  /apis/common/sync-remote-asset:
+    post:
+      consumes:
+      - application/json
+      description: 同步远端资源
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 操作类型
+        enum:
+        - category
+        - site
+        format: string
+        in: formData
+        name: action
+        required: true
+        type: string
+      - description: 远端资源地址
+        format: string
+        in: formData
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.CommonSyncRemoteAssetAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/common/sync-remote-asset - 同步远端资源
+      tags:
+      - common - 通用模块
+  /apis/common/upload:
+    put:
+      consumes:
+      - multipart/form-data
+      description: 上传文件
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: 操作类型
+        enum:
+        - category
+        - site
+        format: string
+        in: formData
+        name: action
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.CommonUploadAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/common/upload - 上传文件
+      tags:
+      - common - 通用模块
+  /apis/index/list:
+    get:
+      consumes:
+      - application/json
+      description: 获取完整的导航列表
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavListAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/index/list - 获取完整的导航列表
+      tags:
+      - index - 首页模块
+  /apis/nav/categories:
+    get:
+      consumes:
+      - application/json
+      description: 获取分类列表
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavCategoryListAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/categories - 获取分类列表
+      tags:
+      - nav - 导航模块
+  /apis/nav/category:
+    delete:
+      consumes:
+      - application/json
+      description: 删除分类
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 唯一标识符
+        format: string
+        in: query
+        name: identity
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavCategoryDeleteAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/category - 删除分类
+      tags:
+      - nav - 导航模块
+    post:
+      consumes:
+      - application/json
+      description: 保存分类
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.NavCategorySaveReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavCategorySaveAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/category - 保存分类
+      tags:
+      - nav - 导航模块
+  /apis/nav/category/sorted:
+    post:
+      consumes:
+      - application/json
+      description: 保存分类排序
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.NavCategorySortedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavCategorySortedAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/category/sorted - 保存分类排序
+      tags:
+      - nav - 导航模块
+  /apis/nav/list:
+    get:
+      consumes:
+      - application/json
+      description: 获取完整的导航列表
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavListAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/list - 获取完整的导航列表
+      tags:
+      - nav - 导航模块
+  /apis/nav/site:
+    delete:
+      consumes:
+      - application/json
+      description: 删除站点
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 唯一标识符
+        format: string
+        in: query
+        name: identity
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavSiteDeleteAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/site - 删除站点
+      tags:
+      - nav - 导航模块
+    post:
+      consumes:
+      - application/json
+      description: 保存站点
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.NavSiteSaveReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavSiteSaveAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/site - 保存站点
+      tags:
+      - nav - 导航模块
+  /apis/nav/site/sorted:
+    post:
+      consumes:
+      - application/json
+      description: 保存站点排序
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.NavSiteSortedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavSiteSortedAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/site/sorted - 保存站点排序
+      tags:
+      - nav - 导航模块
+  /apis/nav/sites:
+    get:
+      consumes:
+      - application/json
+      description: 按分类获取站点列表
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分类唯一标识
+        format: string
+        in: query
+        name: categoryIdentity
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.NavSiteListAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/nav/sites - 按分类获取站点列表
+      tags:
+      - nav - 导航模块
+  /apis/user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.UserLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.UserLoginAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/user/login - 用户登录
+      tags:
+      - user - 用户模块
+  /apis/user/logout:
+    post:
+      consumes:
+      - application/json
+      description: 用户退出登录
+      parameters:
+      - description: 授权token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求载荷
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/req.UserLogoutReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ack.UserLogoutAck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.Error400'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Error500'
+      security:
+      - ApiKeyAuth: []
+      summary: apis/user/logout - 用户退出登录
+      tags:
+      - user - 用户模块
+securityDefinitions:
+  ApiKeyAuth:
+    description: Access Token protects our entity endpoints
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,141 @@
+app_name: nav-server-admin
+timezone: Asia/Shanghai
+debug: true
+logger_conf:
+  console_output: false
+  env: dev
+  level: warn
+  filename: logs/nav-server-admin.log
+  modules:
+    - "schedule"
+  max_size: 100
+  max_backups: 10
+  compress: true
+  exporter:
+    provider: "" # <- 暂时禁用
+    redis:
+      list_key: "nav-server-admin:logger"
+      conn_conf:
+        endpoint:
+          host: 127.0.0.1
+          port: 6399
+          username: ""
+          password: "fake"
+        database: 10
+        ssl_enable: true
+      cluster_conn_conf:
+        ssl_enable: false
+        endpoints:
+          - host: 127.0.0.1
+            port: 6379
+            username: ""
+            password: ""
+          - host: 127.0.0.1
+            port: 6380
+            username: ""
+            password: ""
+
+db_conf:
+  enable: true
+  driver_name: mysql
+  auto_migrate: true
+  log_level: warn
+  connection_pool:
+    max_open_conn_count: 20
+    max_idle_conn_count: 10
+    conn_max_life_time_minutes: 30
+    conn_max_idle_time_minutes: 10
+  mysql:
+    read:
+      host: 127.0.0.1
+      port: 3308
+      username: root
+      password: root
+      database: nav_server
+      charset: utf8mb4
+      parseTime: true
+      loc: Local
+    write:
+      host: 127.0.0.1
+      port: 3308
+      username: root
+      password: root
+      database: nav_server
+      charset: utf8mb4
+      parseTime: true
+      loc: Local
+
+redis_conf:
+  enable: true
+  ssl_enable: false
+  endpoint:
+    host: "127.0.0.1"
+    port: 6399
+    username: ""
+    password: "fake"
+  database: 0
+
+redis_cluster_conf:
+  enable: false
+  ssl_enable: false
+  endpoints:
+    - host: 127.0.0.1
+      port: 6379
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6380
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6381
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6382
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6383
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6384
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6385
+      username: ""
+      password: ""
+    - host: 127.0.0.1
+      port: 6386
+      username: ""
+      password: ""
+
+http_conf:
+  debug: true
+  addr: :2026
+  swagger_conf:
+    enable: true
+    redoc_ui_path: "app/admin/http/docs/apidoc.html"
+    json_path: "app/admin/http/docs/swagger.json"
+    favicon_path: "static/go-sail-logo.png"
+  prometheus_conf:
+    enable: false
+    addr: :2027
+    access_path: "/metrics"
+
+jwt_conf:
+  enable: true
+  algorithm: RS256
+  token_issuer: "Go-Sail"
+  public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1qAnv4tKrNo6W+JowFxBY+UBxA2U6r3UrqF/azUQ9kKIrCNir93fUWhUG+3W5VqE6+Q+ONtxAe5Npu9ADmMxCFXq+qXxkg2aPBSuRCWYiqbwbiDDexr4SyMEm69rOkUE4BBYds06JMgChSVxGwXPtQ4fw2YTmK1oOGI8TKgz6mGdX9dkva6KfS8MXbrl9dk9qprLwZLp3cO83bimKYY9NlQ5PqhGy7vSa03iUKrcKdzSA1iCYdayRWyNMVRRa6gAB2J9yuWNduKm9ciFg3wSxexl4QYM4vSiivPAwOiFG5HFa9QI6idjMUfeRcBCml1sHJA0rg4YWXHXu27Y7LAjEQIDAQAB
+  private_key: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDWoCe/i0qs2jpb4mjAXEFj5QHEDZTqvdSuoX9rNRD2QoisI2Kv3d9RaFQb7dblWoTr5D4423EB7k2m70AOYzEIVer6pfGSDZo8FK5EJZiKpvBuIMN7GvhLIwSbr2s6RQTgEFh2zTokyAKFJXEbBc+1Dh/DZhOYrWg4YjxMqDPqYZ1f12S9rop9LwxduuX12T2qmsvBkundw7zduKYphj02VDk+qEbLu9JrTeJQqtwp3NIDWIJh1rJFbI0xVFFrqAAHYn3K5Y124qb1yIWDfBLF7GXhBgzi9KKK88DA6IUbkcVr1AjqJ2MxR95FwEKaXWwckDSuDhhZcde7btjssCMRAgMBAAECggEANgM2HZlDYL7Gwwr2i7pr5mTijeFRIcZGOPCBrYw8SY0y8gcxtcqjgcw8po6zbyLZorfdBNgM14yOVD2PpE9ILq3Ypd2PLs9nikk2FgZUHkim50AtkdSWueoFJdz+ojpuYKkcakF5qXoAUFu83C0ZOZplWfpdYiX5vX7TaANIlWonLJCVJz384l4qBhWjYZmYMLm//EQGYVHSyprjixhJFDKr7jpQoYkW6XNHMN5oKXikzpGO5oekQC0VKJYFzH9ff43O7/LgXDgNLiczvvn8iOMZltOxs6JsBduSf2Pr1ocxEBqefMgRGVxMg9EeJ1rED7fnjZi0EP2gQNxy5CSFFQKBgQD8y6PnQloiNYxz09EO29qvtVVUslGaUsod3Y8q2bAyx59fazo+pF/msX4vcG5mY/TLN6HWmos+AYsM8WiTvt8F9hZJ0wrEDXvUDUZu70Ow/AF+ovHnrwddMZcNQxhqYUxos1FMknamJTC4Ourj7uFuUivmN6J/3VSLqC2RjuhhJwKBgQDZWKXjxdD7m0vqmSk5SdE0CSPdcNMYqw4rjw9jKQjPRYf5vXpvl8mPNTjBYu94xUnbEVaheH98hoqi2lARRFYtmdJ1WXlGQGcBAS6JSCcBVrCcnXiMF2Fk8m2hPQy6kEDOHjLSFQ//SZDbQb1TvDfQPgd/cP/Nay9cVZ1zYHWNBwKBgQDTEzHSybs6rx2MJQN89aO+bJlIM/Ag/BmZIEMHU2Zkr/tpj729SkBs/izPbYAw7Cscd2IhLz8uUdmJwBRCsO/FKXnowFdP5bZME52IySzrHTAeTe3QNnvem6Z1Q12ijYVgMsGiPvTku07XtRIlqXL/S4suGawMOYD7bzxFOl7bpwKBgQC+ucHpHOAEywRVe83nDdXdWd/1JFq6HPE0XDfehlXKvXNTPmjAoGwplUSWv2Dxk/75lD93Nqx48/+YZQc5/8O4BHHgtIFtmnpJMWZK5dwEmrQk2zK7jJDU6sA1a8NNu+SCe5GRNRZyqXXKUef4IQTBYo1l0h1Hf7Vxy1d9tbmx5QKBgQDPnJwuwwzWsWF3I/iinCoLVTvjaePEi9jypE/YGdZHniJk29+7FtJA4vc7gwYy24hW7am+LvN9lNA5C2yUE51jU7NJs/e2T3RC2EDwUXZWUc+tPTGgDGZyDc//P5Bb3T8wVZbzEtQDNioVQcJWhyF3IUTCqFwkotCUbC2UCge2dQ==
+
+nav_conf:
+  repeat_login: false
+  icon_path: "static/icons"
+  icon_endpoint: "http://127.0.0.1:2026"
+  init_user:
+    username: "go-sail"
+    password: "nav.go-sail.dev"

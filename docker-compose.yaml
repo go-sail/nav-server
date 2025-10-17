@@ -1,0 +1,17 @@
+version: "3.1"
+
+services:
+  nav-server-admin:
+    image: "nav-server:${tag}"
+    environment:
+      - etcdEndpoints=127.0.0.1:2379
+      - etcdUsername=
+      - etcdPassword=
+      - etcdConfigFilename=config.nav-server.yaml
+      - SUB_CMD=nav-server admin -c config.nav-server.yaml # 启动命令
+    volumes:
+      - ./logs:/logs
+      - ./data:/data
+    restart: always
+    ports:
+      - "2025:2025"
