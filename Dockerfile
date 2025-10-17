@@ -29,6 +29,6 @@ ARG SERVE_MODE
 ENV SUB_CMD=SERVE_MODE
 
 COPY --from=builder /output/nav-server /usr/bin/nav-server
-COPY web /web
+COPY static static
 
 CMD nav-server ${SUB_CMD}
