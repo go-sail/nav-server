@@ -20,7 +20,7 @@ func (*indexSvc) List(c *gin.Context) {
 		form req.NavListReq
 		resp ack.NavListAck
 		//loggerSvc   = sail.LogTrace(c).GetLogger()
-		ctx, cancel = context.WithTimeout(context.Background(), time.Second*5)
+		_, cancel = context.WithTimeout(context.Background(), time.Second*5)
 	)
 	defer cancel()
 	if err := c.ShouldBind(&form); err != nil {
@@ -31,12 +31,23 @@ func (*indexSvc) List(c *gin.Context) {
 		sail.Response(c).Wrap(code, resp, err.Error()).Send()
 		return
 	}
+
+	//使用内存中的数据而不是每次实时查询数据库
+	//
+	//内存中的数据使用计划任务定时更新
+	resp.List = navListFromMem
+	sail.Response(c).Data(resp)
+}
+
+var navListFromMem = make([]ack.NavCategory, 0)
+
+func (*indexSvc) SaveNavCategoryToMem() {
 	var (
 		categories []models.Category
 		sites      []models.Site
 	)
-	sail.GetDBR().WithContext(ctx).Order("sort_index asc").Find(&categories)
-	sail.GetDBR().WithContext(ctx).Order("sort_index asc").Find(&sites)
+	sail.GetDBR().Order("sort_index asc").Find(&categories)
+	sail.GetDBR().Order("sort_index asc").Find(&sites)
 	var navCategories = make([]ack.NavCategory, 0, len(categories))
 	for _, category := range categories {
 		navCategory := ack.NavCategory{
@@ -63,6 +74,5 @@ func (*indexSvc) List(c *gin.Context) {
 		navCategories = append(navCategories, navCategory)
 	}
 
-	resp.List = navCategories
-	sail.Response(c).Data(resp)
+	navListFromMem = navCategories
 }

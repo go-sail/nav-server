@@ -28,6 +28,7 @@ import (
 	"github.com/keepchen/go-sail/v3/sail"
 	"nav-server/app/admin/config"
 	"nav-server/app/admin/http/routes"
+	"nav-server/app/admin/http/schedule"
 	"nav-server/pkg/constants"
 	"nav-server/pkg/models"
 )
@@ -46,6 +47,10 @@ func StartServer() {
 		} else {
 			fmt.Println("自动同步表结构和数据[√]")
 		}
+		//启动计划任务
+		fmt.Println("启动计划任务...")
+		schedule.RunAllJobs()
+		fmt.Println("启动计划任务[√]")
 	}
 	//设置响应器行为
 	opts := &api.Option{
