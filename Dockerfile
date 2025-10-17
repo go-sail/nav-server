@@ -1,4 +1,4 @@
-FROM golang:1.24 AS builder
+FROM golang:1.25 AS builder
 
 ARG COMMIT_ID
 ARG VERSION=""
@@ -29,6 +29,6 @@ ARG SERVE_MODE
 ENV SUB_CMD=SERVE_MODE
 
 COPY --from=builder /output/nav-server /usr/bin/nav-server
-COPY static static
+COPY static /static
 
 CMD nav-server ${SUB_CMD}

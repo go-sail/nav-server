@@ -3,8 +3,8 @@
 set -e
 
 dt=`date +%Y%m%d`
-tag="heybox/servers:${dt}"
-archive="heybox-servers-${dt}.zip"
+tag="go-sail/nav-server:${dt}"
+archive="nav-server-${dt}.zip"
 
 echo "build image tag is: ${tag}"
 

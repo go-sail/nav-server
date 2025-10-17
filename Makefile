@@ -1,9 +1,9 @@
 # workdir info
-PACKAGE=heybox-servers
+PACKAGE=nav-server
 PREFIX=$(shell pwd)
 CMD_PACKAGE=${PACKAGE}
 OUTPUT_DIR=${PREFIX}/bin
-OUTPUT_FILE=${OUTPUT_DIR}/heybox-servers
+OUTPUT_FILE=${OUTPUT_DIR}/nav-server
 COMMIT_ID=$(shell git rev-parse --short HEAD)
 VERSION=$(shell git describe --tags || echo "v0.0.0")
 VERSION_IMPORT_PATH=${PACKAGE}/cmd
@@ -43,13 +43,13 @@ test:
 .PHONY:build
 build:
 	@echo "+ build"
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(BUILD_ARGS) -o /output/heybox-servers
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(BUILD_ARGS) -o /output/nav-server
 
 dist: build
 	@echo "+ $@"
 	mkdir -p dist/
-	@tar -cvf dist/heybox-servers-${VERSION}.tar README.md \
-         		bin/heybox-servers \
+	@tar -cvf dist/nav-server-${VERSION}.tar README.md \
+         		bin/nav-server \
          		config/config.yaml
 
 clean:

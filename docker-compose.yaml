@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   nav-server-admin:
-    image: "nav-server:${tag}"
+    image: "go-sail/nav-server:${tag}"
     environment:
       - etcdEndpoints=
       - etcdUsername=
@@ -14,4 +14,4 @@ services:
       - ./static:/static
     restart: always
     ports:
-      - "2025:2025"
+      - "2026:2026"
