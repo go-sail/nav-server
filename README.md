@@ -10,7 +10,8 @@
 
 ### 本地开发
 
-#### 前端工程
+#### 前端工程  
+> 仓库地址：https://github.com/go-sail/nav-ui
 
 1. **克隆项目**
 ```bash
@@ -32,7 +33,9 @@ npm run dev
 - 导航页面：`http://localhost:5173`
 - 管理后台：`http://localhost:5173/admin`
 
-#### 后端工程
+#### 后端工程  
+> 仓库地址：https://github.com/go-sail/nav-server  
+
 1. **克隆项目**
 ```bash
 git clone https://github.com/go-sail/nav-server.git

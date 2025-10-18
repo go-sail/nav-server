@@ -162,7 +162,7 @@ func DefaultNavList() []ack.NavCategory {
 					URL:         "https://cloud.tencent.com",
 				},
 				{
-					Name:        "Bunney.net",
+					Name:        "Bunny.net",
 					Description: "全球边缘平台",
 					Icon:        fmt.Sprintf("%s/icons/site/bunny.net.ico", config.Get().Nav.IconEndpoint),
 					URL:         "https://bunny.net",
